@@ -130,6 +130,8 @@ module.exports = {
               cacheDirectory: true,
               cacheCompression: true,
               compact: true,
+              babelrc: false,
+              extends: path.resolve(__dirname, '../.babelrc')
             },
           },
           {
@@ -194,6 +196,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      isProd: process.env.NODE_ENV === 'production',
+      publicPath: env.raw.publicPath
     }),
     new ModuleNotFoundPlugin(paths.appPath),
     new webpack.DefinePlugin(env.stringified),

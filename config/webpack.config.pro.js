@@ -190,6 +190,8 @@ module.exports = {
               cacheDirectory: true,
               cacheCompression: true,
               compact: true,
+              babelrc: false,
+              extends: path.resolve(__dirname, '../.babelrc')
             },
           },
           {
@@ -267,6 +269,8 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
+      isProd: process.env.NODE_ENV === 'production',
+      publicPath: env.raw.publicPath
     }),
     new CopyWebpackPlugin([
       {
