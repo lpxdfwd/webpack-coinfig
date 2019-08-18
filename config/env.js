@@ -16,8 +16,7 @@ let envConfig = null;
 
 function loadEnv () {
   if (!envConfig) {
-    const envKey = process.argv[2] || NODE_ENV;
-    const envFile = path.join(rootPath, envDir, envKey + suffix);
+    const envFile = path.join(rootPath, envDir, NODE_ENV + suffix);
     const envObj = fs.existsSync(envFile) ? {...defaultEnv, ...require(envFile)} : {...defaultEnv};
     envConfig = getClientEnvironment(envObj);
   }

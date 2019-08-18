@@ -1,8 +1,10 @@
 {
-  "name": "webpack-config",
-  "version": "0.1.0",
-  "private": true,
-  "devDependencies": {
+  "name": "lpx-webpack-config",
+  "version": "1.0.3",
+  "scripts": {
+    "upload": "npm publish"
+  },
+  "dependencies": {
     "@babel/core": "7.4.3",
     "@babel/helper-annotate-as-pure": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
