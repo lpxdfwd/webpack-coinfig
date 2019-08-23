@@ -12,8 +12,8 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-
 const postcssNormalize = require('postcss-normalize');
+const {isBabelConfig} = require('./utils');
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -124,14 +124,15 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
+              presets: !isBabelConfig ? [require.resolve('lpx-babel-presets/dist/presets')] : null,
               customize: require.resolve(
                 'babel-preset-react-app/webpack-overrides'
               ),
               cacheDirectory: true,
               cacheCompression: true,
               compact: true,
-              babelrc: false,
-              extends: path.resolve(__dirname, '../babel.config.js')
+              // babelrc: false,
+              // extends: path.resolve(__dirname, '../babel.config.js')
             },
           },
           {

@@ -19,7 +19,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const {isBabelConfig} = require('./utils');
 const postcssNormalize = require('postcss-normalize');
 
 const cssRegex = /\.css$/;
@@ -184,14 +184,15 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
+              presets: !isBabelConfig ? [require.resolve('lpx-babel-presets/dist/presets')] : null,
               customize: require.resolve(
                 'babel-preset-react-app/webpack-overrides'
               ),
               cacheDirectory: true,
               cacheCompression: true,
               compact: true,
-              babelrc: false,
-              extends: path.resolve(__dirname, '../babel.config.js')
+              // babelrc: false,
+              // extends: path.resolve(__dirname, '../babel.config.js')
             },
           },
           {
