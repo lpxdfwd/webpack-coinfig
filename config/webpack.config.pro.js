@@ -191,7 +191,7 @@ module.exports = {
               cacheCompression: true,
               compact: true,
               babelrc: false,
-              extends: path.resolve(__dirname, '../.babelrc')
+              extends: path.resolve(__dirname, '../babel.config.js')
             },
           },
           {
@@ -322,6 +322,7 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty',
+    crypto: 'empty',
   },
   performance: false,
 };
