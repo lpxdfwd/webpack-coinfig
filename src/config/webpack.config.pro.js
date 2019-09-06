@@ -105,7 +105,7 @@ module.exports = {
             ecma: 5,
             warnings: false,
             drop_debugger: true,
-            drop_console: true,
+            // drop_console: true,
             comparisons: false,
             inline: 2,
           },
