@@ -134,6 +134,13 @@ module.exports = {
       chunks: 'async',
       name: false,
       minSize: 10000,
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial'
+        }
+      }
     },
     runtimeChunk: true,
   },
