@@ -1,24 +1,21 @@
 'use strict';
 
-// Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 
-// Makes the script crash on unhandled rejections instead of silently
-// ignoring them. In the future, promise rejections that are not handled will
-// terminate the Node.js process with a non-zero exit code.
+//异常监控
 process.on('unhandledRejection', err => {
   throw err;
 });
 
-// Ensure environment variables are read.
-require('../config/env');
+// require('../config/env');
 
 
 const fs = require('fs');
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const webpackMerge = require('webpack-merge');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
@@ -30,12 +27,13 @@ const {
 const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config.dev');
+const {baseConfig} = require('../config/webpack.config.common');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
-// Warn and crash if required files are missing
+// 判断入口文件、index.html
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
@@ -88,7 +86,7 @@ checkBrowsers(paths.appPath, isInteractive)
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,
-      config: configFactory,
+      config: webpackMerge(baseConfig, configFactory),
       devSocket,
       urls,
       useYarn,
@@ -113,9 +111,6 @@ checkBrowsers(paths.appPath, isInteractive)
         clearConsole();
       }
 
-      // We used to support resolving modules according to `NODE_PATH`.
-      // This now has been deprecated in favor of jsconfig/tsconfig.json
-      // This lets you use absolute paths in imports inside large monorepos:
       if (process.env.NODE_PATH) {
         console.log(
           chalk.yellow(
