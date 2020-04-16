@@ -37,6 +37,6 @@ module.exports = (proxy, allowedHost) => ({
     }
     app.use(evalSourceMapMiddleware(server));
     app.use(errorOverlayMiddleware());
-    app.use(noopServiceWorkerMiddleware());
+    // app.use(noopServiceWorkerMiddleware());
   },
 })

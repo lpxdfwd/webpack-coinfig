@@ -8,7 +8,9 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
-// require('../config/env');
+const getClientEnvironment = require('../config/env');
+
+const env = getClientEnvironment();
 
 
 const fs = require('fs');
@@ -121,7 +123,7 @@ checkBrowsers(paths.appPath, isInteractive)
       }
 
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
+      env.raw.autoOpenBorwser && openBrowser(urls.localUrlForBrowser);
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
